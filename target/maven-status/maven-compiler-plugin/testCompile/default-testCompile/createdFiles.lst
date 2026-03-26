@@ -1,0 +1,6 @@
+pages\CheckoutPage.class
+pages\ProductsPage.class
+support\RunCucumberTest.class
+pages\LoginPage.class
+pages\CartPage.class
+steps\CompraSteps.class
