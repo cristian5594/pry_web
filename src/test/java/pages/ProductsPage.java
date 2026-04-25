@@ -14,7 +14,7 @@ public class ProductsPage {
     }
 
     public void addProductToCart(String productName) {
-        // Convierte el nombre del producto a formato de data-test
+
         String id = productName.toLowerCase().replaceAll(" ", "-").replaceAll("[^a-z0-9-]", "");
         String selector = String.format("button[data-test='add-to-cart-%s']", id);
         page.waitForSelector(selector);

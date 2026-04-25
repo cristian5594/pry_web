@@ -16,7 +16,7 @@ public class LoginPage {
     public void login(String username, String password) {
         page.fill("#user-name", username);
         page.fill("#password", password);
-        page.click("#login-button");
+        //page.click("#login-button");
     }
 
     public String getErrorMessage() {

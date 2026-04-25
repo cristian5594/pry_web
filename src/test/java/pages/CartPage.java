@@ -10,7 +10,9 @@ public class CartPage {
     }
 
     public boolean hasProduct(String productName) {
+        page.waitForTimeout(2000);
         return page.locator(".cart_item:has-text('" + productName + "')").count() > 0;
+
     }
 
     public void goToCheckout() {

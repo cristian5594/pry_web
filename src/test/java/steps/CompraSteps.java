@@ -20,7 +20,7 @@ public class CompraSteps {
     @Before
     public void setUp() {
         playwright = Playwright.create();
-        browser = playwright.chromium().launch();
+        browser = playwright.chromium().launch(new BrowserType.LaunchOptions().setHeadless(false));
         context = browser.newContext();
         page = context.newPage();
         loginPage = new LoginPage(page);
@@ -48,7 +48,10 @@ public class CompraSteps {
 
     @When("hace clic en el botón de login")
     public void hace_clic_en_el_boton_de_login() {
-        // Si el click ya se hace en login, dejar vacío
+        Locator loginButton = page.locator("#login-button");
+        loginButton.waitFor();
+        loginButton.click();
+        page.waitForTimeout(2000);
     }
 
     @Then("debería ver la página de productos")
@@ -89,23 +92,29 @@ public class CompraSteps {
     @When("navega al carrito de compras")
     public void navega_al_carrito_de_compras() {
         productsPage.goToCart();
+
     }
 
     @Then("debería ver el producto {string} en el carrito")
     public void deberia_ver_el_producto_en_el_carrito(String producto) {
         Assert.assertTrue(cartPage.hasProduct(producto));
+
     }
 
     @When("navega al carrito y completa el proceso de compra con nombre {string} apellido {string} y código postal {string}")
     public void navega_al_carrito_y_completa_el_proceso_de_compra_con_nombre_apellido_y_codigo_postal(String nombre, String apellido, String postal) {
+
         productsPage.goToCart();
         cartPage.goToCheckout();
         checkoutPage.fillInfo(nombre, apellido, postal);
+        page.waitForTimeout(3000);
         checkoutPage.finishCheckout();
+
     }
 
     @Then("debería ver la confirmación de la compra")
     public void deberia_ver_la_confirmacion_de_la_compra() {
+        page.waitForTimeout(1000);
         Assert.assertTrue(checkoutPage.isConfirmed());
     }
 
