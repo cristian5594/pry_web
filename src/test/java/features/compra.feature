@@ -3,18 +3,21 @@ Feature: Compra de productos en Sauce Demo
   Quiero poder iniciar sesión, agregar productos al carrito y completar una compra
   Para poder adquirir los productos que necesito
 
+  @usuario_valido
   Scenario: Login exitoso con usuario válido
     Given que el usuario navega a la página de login
     When ingresa el usuario "standard_user" y la contraseña "secret_sauce"
     And hace clic en el botón de login
     Then debería ver la página de productos
 
+  @usuario_bloqueado
   Scenario: Login fallido con usuario bloqueado
     Given que el usuario navega a la página de login
     When ingresa el usuario "locked_out_user" y la contraseña "secret_sauce"
     And hace clic en el botón de login
     Then debería ver un mensaje de error de acceso
 
+  @agregar_carrito
   Scenario: Agregar producto al carrito
     Given que el usuario navega a la página de login
     When ingresa el usuario "standard_user" y la contraseña "secret_sauce"
@@ -22,6 +25,7 @@ Feature: Compra de productos en Sauce Demo
     And agrega el producto "Sauce Labs Backpack" al carrito
     Then el carrito debe mostrar 1 producto
 
+  @visualizar_carrito
   Scenario: Visualizar productos en el carrito
     Given que el usuario navega a la página de login
     When ingresa el usuario "standard_user" y la contraseña "secret_sauce"
@@ -30,6 +34,7 @@ Feature: Compra de productos en Sauce Demo
     When navega al carrito de compras
     Then debería ver el producto "Sauce Labs Backpack" en el carrito
 
+  @completar_compra
   Scenario: Completar proceso de compra
     Given que el usuario navega a la página de login
     When ingresa el usuario "standard_user" y la contraseña "secret_sauce"
@@ -38,6 +43,7 @@ Feature: Compra de productos en Sauce Demo
     When navega al carrito y completa el proceso de compra con nombre "QA" apellido "Test" y código postal "12345"
     Then debería ver la confirmación de la compra
 
+  @eliminar_producto
   Scenario: Eliminar producto del carrito
     Given que el usuario navega a la página de login
     When ingresa el usuario "standard_user" y la contraseña "secret_sauce"
@@ -47,7 +53,8 @@ Feature: Compra de productos en Sauce Demo
     And elimina el producto "Sauce Labs Backpack" del carrito
     Then el carrito debe estar vacío
 
-  Scenario: Checkout con campos vacíos
+  @campos_vacios
+  Scenario: Checkout con campos vacios
     Given que el usuario navega a la página de login
     When ingresa el usuario "standard_user" y la contraseña "secret_sauce"
     And hace clic en el botón de login

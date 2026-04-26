@@ -56,11 +56,14 @@ public class CompraSteps {
 
     @Then("debería ver la página de productos")
     public void deberia_ver_la_pagina_de_productos() {
+        page.waitForTimeout(1000);
         Assert.assertTrue(productsPage.isAt());
+
     }
 
     @Then("debería ver un mensaje de error de acceso")
     public void deberia_ver_un_mensaje_de_error_de_acceso() {
+        page.waitForTimeout(1000);
         Assert.assertTrue(loginPage.getErrorMessage().contains("locked out"));
     }
 
@@ -74,10 +77,12 @@ public class CompraSteps {
     @When("agrega el producto {string} al carrito")
     public void agrega_el_producto_al_carrito(String producto) {
         productsPage.addProductToCart(producto);
+        page.waitForTimeout(1000);
     }
 
     @Then("el carrito debe mostrar {int} producto")
     public void el_carrito_debe_mostrar_producto(int cantidad) {
+        page.waitForTimeout(1000);
         Assert.assertEquals(cantidad, productsPage.getCartCount());
     }
 
@@ -91,12 +96,14 @@ public class CompraSteps {
 
     @When("navega al carrito de compras")
     public void navega_al_carrito_de_compras() {
+        page.waitForTimeout(2000);
         productsPage.goToCart();
 
     }
 
     @Then("debería ver el producto {string} en el carrito")
     public void deberia_ver_el_producto_en_el_carrito(String producto) {
+        page.waitForTimeout(2000);
         Assert.assertTrue(cartPage.hasProduct(producto));
 
     }
@@ -107,39 +114,42 @@ public class CompraSteps {
         productsPage.goToCart();
         cartPage.goToCheckout();
         checkoutPage.fillInfo(nombre, apellido, postal);
-        page.waitForTimeout(3000);
+        page.waitForTimeout(2000);
         checkoutPage.finishCheckout();
 
     }
 
     @Then("debería ver la confirmación de la compra")
     public void deberia_ver_la_confirmacion_de_la_compra() {
-        page.waitForTimeout(1000);
+        page.waitForTimeout(2000);
         Assert.assertTrue(checkoutPage.isConfirmed());
     }
 
     @When("elimina el producto {string} del carrito")
     public void elimina_el_producto_del_carrito(String producto) {
-        // cartPage.removeProduct(producto);
+        page.waitForTimeout(2000);
+         cartPage.removeProducto(producto);
     }
 
     @Then("el carrito debe estar vacío")
     public void el_carrito_debe_estar_vacio() {
-        // Assert.assertTrue(cartPage.isEmpty());
+         Assert.assertTrue(cartPage.getVacio());
     }
 
     @When("hace clic en Checkout")
     public void hace_clic_en_checkout() {
-        // cartPage.goToCheckout();
+         cartPage.goToCheckout();
     }
 
     @When("deja los campos vacíos y continúa")
     public void deja_los_campos_vacios_y_continua() {
-        // checkoutPage.continueWithEmptyFields();
+        page.waitForTimeout(2000);
+         cartPage.getContinue();
     }
 
     @Then("debería ver un mensaje de error de campos obligatorios")
     public void deberia_ver_un_mensaje_de_error_de_campos_obligatorios() {
-        // Assert.assertTrue(checkoutPage.hasRequiredFieldsError());
+         Assert.assertTrue(cartPage.getValidarMensaje());
+         page.waitForTimeout(2000);
     }
 }

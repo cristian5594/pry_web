@@ -13,6 +13,7 @@ public class CheckoutPage {
         page.fill("[data-test='firstName']", first);
         page.fill("[data-test='lastName']", last);
         page.fill("[data-test='postalCode']", postal);
+        page.waitForTimeout(2000);
         page.click("[data-test='continue']");
     }
 

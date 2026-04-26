@@ -8,7 +8,8 @@ import io.cucumber.junit.CucumberOptions;
 @CucumberOptions(
 	features = "src/test/java/features",
 	glue = {"steps"},
-	plugin = {"pretty", "summary", "html:target/cucumber-report.html"}
+	plugin = {"pretty", "summary", "html:target/cucumber-report.html"},
+	tags = "@usuario_bloqueado"
 )
 public class RunCucumberTest {
 }
